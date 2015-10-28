@@ -314,8 +314,8 @@ static BMData *create_bmdata(MyAllocator *my, byte *x, Uint len,
 /*
  * Aho Corasick - Build a Trie and fill in the failure functions
  * when all strings are added.
- * The algorithm is nicely described by Dieter Bühler of University of
- * Tübingen:
+ * The algorithm is nicely described by Dieter Bï¿½hler of University of
+ * Tï¿½bingen:
  * http://www-sr.informatik.uni-tuebingen.de/~buehler/AC/AC.html
  */
 
@@ -2557,6 +2557,16 @@ BIF_RETTYPE binary_referenced_byte_size_1(BIF_ALIST_1)
     }
     BIF_RET(res);
 }
+
+BIF_RETTYPE free_refc_bin_1(BIF_ALIST_1)
+{
+    if (is_binary(BIF_ARG_1) && binary_bitsize(BIF_ARG_1) > 512) {
+    erts_bin_free((Binary *) binary_val(BIF_ARG_1));
+	BIF_RET(am_true);
+    }
+    BIF_RET(am_false); /* this is a heap binary */
+}
+
 
 #define END_BIG 0
 #define END_SMALL 1

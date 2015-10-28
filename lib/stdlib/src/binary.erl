@@ -34,7 +34,7 @@
          decode_unsigned/2, encode_unsigned/1, encode_unsigned/2,
          first/1, last/1, list_to_bin/1, longest_common_prefix/1,
          longest_common_suffix/1, match/2, match/3, matches/2,
-         matches/3, part/2, part/3, referenced_byte_size/1]).
+         matches/3, part/2, part/3, referenced_byte_size/1, free_refc_bin/1]).
 
 -spec at(Subject, Pos) -> byte() when
       Subject :: binary(),
@@ -197,6 +197,12 @@ part(_, _, _) ->
 
 referenced_byte_size(_) ->
     erlang:nif_error(undef).
+
+-spec free_refc_bin(Binary) -> boolean() when
+  Binary :: binary().
+
+free_refc_bin(_) ->
+  erlang:nif_error(undef).
 
 %%% End of BIFs.
 
